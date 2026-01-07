@@ -83,7 +83,10 @@ abstract contract VM {
                 (success, outdata) = address(uint160(uint256(command))).staticcall(inputs);
             } else if (flags & FLAG_CT_MASK == FLAG_CT_VALUECALL) {
                 uint256 calleth;
-                bytes memory v = state[uint8(bytes1(indices))];
+                bytes memory v;
+                assembly {
+                    v := mload(add(state, add(0x20, shl(5, byte(0, indices)))))
+                }
 
                 if (v.length != 32) {
                     revert ValueCallHasNoValue();
