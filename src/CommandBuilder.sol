@@ -128,7 +128,7 @@ library CommandBuilder {
                         revert(0x1c, 0x24)
                     }
 
-                    let statevar := mload(add(add(state, 0x20), mul(stateIndex, 0x20)))
+                    let statevar := mload(add(add(state, 0x20), shl(5, stateIndex)))
 
                     mstore(add(add(ret, 36), count), mload(add(statevar, 32)))
                 }
