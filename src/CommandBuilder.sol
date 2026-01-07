@@ -215,9 +215,9 @@ library CommandBuilder {
         bytes memory entry = state[idx] = new bytes(output.length + 32);
 
         assembly {
-            mcopy(add(add(entry, 0x20), 0x20), add(output, 0x20), mload(output))
+            mcopy(add(entry, 0x40), add(output, 0x20), mload(output))
             let l := mload(output)
-            mstore(add(entry, 32), l)
+            mstore(add(entry, 0x20), l)
         }
     }
 }
